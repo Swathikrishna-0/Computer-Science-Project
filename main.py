@@ -1,6 +1,5 @@
 from scanner import get_python_version, get_installed_packages, get_vscode_extensions
 from vulnerability_checker import fetch_cve_data, classify_risk
-from alert_system import send_notification, send_email_alert
 import subprocess
 
 def choose_scan_mode():
@@ -64,7 +63,6 @@ def check_installed_environments():
     """
     print("Checking installed environments (Anaconda/Miniconda)...")
     try:
-        # Check for Anaconda/Miniconda environments
         result = subprocess.run(['conda', 'info'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if result.returncode == 0:
             print("Environments found:")
@@ -94,11 +92,6 @@ def check_installed_libraries():
                 print(f"Last Modified: {cve['lastModifiedDate']}")
                 print(f"Risk Level: {risk}")
                 print("-" * 50)
-                
-                # Send alerts if the risk level is high
-                if risk == "High":
-                    send_notification(f"High risk detected in {name} version {version}!")
-                    send_email_alert("recipient@example.com", f"High-risk vulnerability in {name}", f"Detected: {risk} risk in {name} {version}")
         else:
             print(f"No vulnerabilities found for {name} version {version}.")
 
@@ -116,16 +109,13 @@ def check_installed_ide_extensions():
         print("Skipping VS Code extension check.")
 
 
-
-
 def check_critical_libraries():
     print("Checking critical libraries...")
     critical_libraries = ['requests', 'flask', 'numpy']
     
-    installed_packages = get_installed_packages()  # Get installed packages
+    installed_packages = get_installed_packages()
     
     for package in critical_libraries:
-        # Check if the package is installed
         found_package = next((pkg for pkg in installed_packages if pkg.startswith(package)), None)
         
         if found_package:
@@ -147,14 +137,12 @@ def check_critical_libraries():
 def main():
     print("Starting the Python Security Vulnerability Scanner...")
     
-    # Step 1: Get Python version and installed packages
     python_version = get_python_version()
     print(f"Python Version: {python_version}")
     
     installed_packages = get_installed_packages()
     print(f"Installed Packages: {installed_packages}")
     
-    # Choose scan mode
     mode = choose_scan_mode()
     
     if mode == "1":

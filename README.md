@@ -5,11 +5,9 @@ A Python-based tool for scanning environments, discovering installed packages, c
 ## Project Structure
 
 ```
-src/
-    main.py                  # CLI entry point and orchestration
-    scanner.py               # Environment and package discovery
-    vulnerability_checker.py # CVE lookup and risk classification
-    alert_system.py          # Notification and alert module (future)
+main.py                  # CLI entry point and orchestration
+scanner.py               # Environment and package discovery
+vulnerability_checker.py # CVE lookup and risk classification
 tests/
     test_scanner.py
     test_vulnerability_checker.py

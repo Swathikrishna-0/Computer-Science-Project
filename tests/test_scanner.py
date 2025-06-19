@@ -1,5 +1,11 @@
+import sys
+import os
 import unittest
-from src.scanner import get_python_version, get_installed_packages
+
+# Add the parent directory to the path to import scanner.py correctly
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from scanner import get_python_version, get_installed_packages
 
 class TestScanner(unittest.TestCase):
     
